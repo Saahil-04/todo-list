@@ -1,0 +1,362 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Prompt", serif;
+}
+
+body {
+  
+    font-weight: 400;
+    font-style: normal;
+    background: #f4f4f4;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    color: white;
+}
+
+.container {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: left;
+    width: 100%;
+}
+
+.fa-circle-check {
+    font-size: 50px;
+    margin-left: 20px;
+}
+
+header h1 {
+    margin: 10px 20px;
+}
+
+#app {
+    display: flex;
+    width: 100%;
+    height: calc(100% - 40px);
+}
+
+.fa-plus {
+    background: #336295a3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.projectTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0px;
+}
+
+aside {
+    width: 25%;
+    background: #292929;
+    color: white;
+    padding: 0 30px;
+}
+
+main {
+    width: 75%;
+    padding: 0 50px;
+    background: #202024;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    overflow-y: auto;
+}
+
+.project-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.project-item:hover {
+    background-color: #616161;
+    color: #050505;
+}
+
+.selected-project {
+    background-color: #d3d3d3;
+    font-weight: bold;
+    color: #202024;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Dark transparent background */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    overflow: none;
+}
+
+
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    color: #202020;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.modal-close:hover {
+    color: #f44336;
+    /* Red color on hover */
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #333;
+    color: white;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    background: #89dceb;
+    /* Green theme */
+    color: white;
+    border: none;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.modal-content button:hover {
+    background: #446e75;
+}
+
+.modal-header {
+    font-size: 20px;
+    color: rgb(29, 29, 29);
+    margin-bottom: 10px;
+}
+
+#todo-details {
+    width: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.todoheader {
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todoheader h2 {
+    font-size: 2.0rem;
+    ;
+}
+
+#todo-list {
+    color: black;
+    list-style: none;
+    padding: 0;
+    max-height: 400px;
+    /* overflow-y: auto; */
+}
+
+/* Todo Item Styling */
+
+.todo-itemDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(63, 63, 63);
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    width: 100%;
+}
+
+.todo-item:hover {
+    transform: scale(1.01);
+}
+
+.todo-item.completed {
+    background: rgb(46, 46, 46);
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* Checkbox */
+/* Hide the default checkbox */
+.todo-checkbox {
+    display: none;
+}
+
+/* Custom checkbox container */
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid #ccc;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Checkbox hover effect */
+.custom-checkbox:hover {
+    border-color: #888;
+}
+
+/* Checked state */
+.todo-checkbox:checked+.custom-checkbox {
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+/* Add a checkmark */
+.todo-checkbox:checked+.custom-checkbox::after {
+    content: '✔';
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Smooth transition */
+.custom-checkbox,
+.todo-checkbox:checked+.custom-checkbox {
+    transition: 0.3s ease-in-out;
+}
+
+/* Todo Content */
+.todo-content {
+    flex-grow: 1;
+}
+
+#todo-item-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+#todo-item-desc h2 {
+    margin: 5px 0;
+}
+
+
+/* Priority Indicator */
+.priority-high {
+    color: red;
+    font-weight: bold;
+}
+
+.priority-medium {
+    color: orange;
+}
+
+.priority-low {
+    color: green;
+}
+
+/* Add Todo Button */
+#add-todo {
+    width: 100%;
+    padding: 10px;
+    background: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#add-todo:hover {
+    background: #2980b9;
+}
+
+.delete-todo,.delete-project {
+    background: none;
+    border: none;
+}
+
+.delete-project i{
+    font-size: 1rem;
+}
+
+.delete-todo i {
+    font-size: 1.5rem;
+}

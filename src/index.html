@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- <link rel="stylesheet" href="styles.css"> Add a CSS file -->
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <i class="fa-regular fa-circle-check"></i>
+            <h1>To-Do List</h1>
+        </header>
+
+        <div id="app">
+            <aside id="projects">
+                <div class="projectTitle">
+                    <h2>Projects</h2>
+                    <i class="fa-solid fa-plus" id="add-project-btn"></i>
+                    <!-- <button id="add-project-btn">+ Add Project</button> -->
+                </div>
+                <div id="project-list"></div>
+            </aside>
+
+            <main id="todo-container">
+                <div class="todoheader">
+                    <h2>Todos</h2>
+                    <i class="fa-solid fa-plus" id="add-todo-btn"></i>
+                </div>
+                <div id="todo-list"></div>
+                <!-- <button id="add-todo-btn">+ Add Todo</button> -->
+            </main>
+        </div>
+
+        <!-- 🚀 Project Modal -->
+        <div id="project-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-project-modal" class="modal-close">&times;</span>
+                <h2 class="modal-header">Create New Project</h2>
+                <input type="text" id="project-name" placeholder="Enter Project Name">
+                <button id="save-project">Save Project</button>
+            </div>
+        </div>
+
+        <!-- 🚀 Todo Modal -->
+        <div id="todo-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-todo-modal" class="modal-close">&times;</span>
+                <h2 class="modal-header">Add New Task</h2>
+                <select id="todo-project-select"></select>
+                <input type="text" id="todo-title" placeholder="Enter Task Title">
+                <textarea id="todo-description" placeholder="Enter Task Description" rows="5" cols="10"></textarea>
+                <fieldset id="todo-details">
+                    <input type="date" id="todo-due-date">
+                    <select id="todo-priority">
+                        <option value="High">High Priority</option>
+                        <option value="Medium">Medium Priority</option>
+                        <option value="Low">Low Priority</option>
+                    </select>
+                </fieldset>
+                <button id="save-todo">Add Task</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script> <!-- Your main JS file -->
+</body>
+
+</html>
