@@ -33,7 +33,8 @@ export default class Storage {
                 todo.dueDate,
                 todo.priority,
                 todo.notes,
-                todo.checklist
+                todo.checklist,
+                todo.completed || false
             ));
 
             return project;

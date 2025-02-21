@@ -46,6 +46,14 @@ class TodoManager {
         return project ? project.getTodos() : [];
     }
 
+    getAllTodos() {
+        let allTodos = [];
+        this.projects.forEach(project => {
+            allTodos = allTodos.concat(project.todos);
+        });
+        return allTodos;
+    }
+
 }
 
 export default new TodoManager();

@@ -6,7 +6,7 @@
 }
 
 body {
-  
+
     font-weight: 400;
     font-style: normal;
     background: #f4f4f4;
@@ -60,6 +60,15 @@ header h1 {
     cursor: pointer;
 }
 
+.project-filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 10px;
+    font-size: 1.2rem;
+}
+
 .projectTitle {
     display: flex;
     justify-content: space-between;
@@ -97,6 +106,19 @@ main {
 .project-item:hover {
     background-color: #616161;
     color: #050505;
+}
+
+.special-project {
+    font-weight: bold;
+    color: #ff9800;
+    /* Orange color */
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.special-project:hover {
+    background-color: rgba(255, 152, 0, 0.2);
 }
 
 .selected-project {
@@ -141,9 +163,9 @@ main {
 
 .modal-close {
     position: absolute;
-    top: 10px;
+    top: 0px;
     right: 15px;
-    font-size: 22px;
+    font-size: 40px;
     color: #202020;
     cursor: pointer;
     transition: 0.3s;
@@ -172,7 +194,7 @@ main {
     padding: 10px;
     background: #89dceb;
     /* Green theme */
-    color: white;
+    color: rgb(39, 39, 39);
     border: none;
     font-size: 20px;
     border-radius: 5px;
@@ -183,6 +205,7 @@ main {
 
 .modal-content button:hover {
     background: #446e75;
+    color: white;
 }
 
 .modal-header {
@@ -348,15 +371,19 @@ main {
     background: #2980b9;
 }
 
-.delete-todo,.delete-project {
+.delete-todo,
+.delete-project {
     background: none;
     border: none;
 }
 
-.delete-project i{
+.delete-project i {
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .delete-todo i {
     font-size: 1.5rem;
+    cursor: pointer;
+
 }

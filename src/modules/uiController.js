@@ -1,6 +1,7 @@
 import Todo from './todo';
 import Storage from './storage';
 import TodoManager from './todomanager';
+import todomanager from './todomanager';
 
 class UIController {
 
@@ -9,6 +10,24 @@ class UIController {
     static renderprojects() {
         const projectList = document.getElementById('project-list');
         projectList.innerHTML = '';
+        const projectFilters = document.querySelector('.project-filters');
+        projectFilters.innerHTML = ''
+
+
+        const specialProjects = ['Today', 'Upcoming'];
+        specialProjects.forEach(name => {
+
+            const specialDiv = document.createElement('div');
+            specialDiv.textContent = name;
+            specialDiv.classList.add('project-item', 'special-item');
+            specialDiv.addEventListener('click', () => {
+                this.currentProject = name;
+                this.renderTodos(name);
+                this.highlightSelectedProject(specialDiv);
+            });
+            projectFilters.append(specialDiv);
+
+        });
 
         TodoManager.projects.forEach(project => {
             const projectDiv = document.createElement('div');
@@ -32,12 +51,38 @@ class UIController {
             projectList.appendChild(projectDiv);
         });
         this.updateProjectDropdown();
-    }
+        this.currentProject = "Today"
+        this.renderTodos('Today');
+        this.highlightSelectedProject(document.querySelector('.project-item'))
 
+    }
+    //thetoday and upcoming todos are not showing
     static renderTodos(projectName) {
         const todoList = document.getElementById('todo-list');
         todoList.innerHTML = '';
-        let todos = TodoManager.getProjectTodos(projectName);
+        let todos;
+        const todayDate = new Date();
+        console.log("the date today", todayDate);
+
+        if (projectName === 'Today') {
+            todos = TodoManager.getAllTodos().filter(todo => {
+                let todoDate = new Date(todo.dueDate)
+                return (todoDate.toDateString() === todayDate.toDateString() && !todo.completed);
+            });
+
+            console.log("The todos scheduled for today", todos);
+        } else if (projectName === 'Upcoming') {
+            todos = TodoManager.getAllTodos().filter(todo => {
+                let todoDate = new Date(todo.dueDate);
+                return (todoDate > todayDate && !todo.completed); // Future Dates
+            });
+            console.log("The upcoming todos scheduled", todos);
+        } else {
+            todos = TodoManager.getProjectTodos(projectName);
+            console.log("the todos are", todos)
+
+        }
+
 
         todos.forEach(todo => {
             const todoItem = document.createElement('div');
@@ -69,7 +114,7 @@ class UIController {
 
             const checkbox = todoItem.querySelector('.todo-checkbox');
             checkbox.addEventListener('change', () => {
-                todo.toggleCompleted();
+                todo.toggleCompleted(todo.title);
                 Storage.saveProjects(TodoManager.projects);
                 UIController.renderTodos(projectName);
 
