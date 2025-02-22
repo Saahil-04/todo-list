@@ -54,6 +54,33 @@ class TodoManager {
         return allTodos;
     }
 
+    updateTodoInProject(oldTitle, updatedTodo) {
+        let found = false;
+
+
+        this.projects.forEach((project) => {
+            project.todos.forEach((todo, index) => {
+                if (todo.title === oldTitle) {
+                    console.log("updating todo ", oldTitle, "in project", project.name)
+
+                    // Update the existing todo
+                    project.todos[index].title = updatedTodo.title;
+                    project.todos[index].description = updatedTodo.description;
+                    project.todos[index].dueDate = updatedTodo.dueDate;
+                    project.todos[index].priority = updatedTodo.priority;
+
+                    found = true;
+                }
+            });
+        });
+        if(found){
+            Storage.saveProjects(this.projects);
+        }
+        else{
+            console.warn("todo not found in any of the projects",oldTitle);
+        }
+    }
+
 }
 
 export default new TodoManager();

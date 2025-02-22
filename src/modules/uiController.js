@@ -1,7 +1,7 @@
 import Todo from './todo';
 import Storage from './storage';
 import TodoManager from './todomanager';
-import todomanager from './todomanager';
+// import todomanager from './todomanager';
 
 class UIController {
 
@@ -19,7 +19,7 @@ class UIController {
 
             const specialDiv = document.createElement('div');
             specialDiv.textContent = name;
-            specialDiv.classList.add('project-item', 'special-item');
+            specialDiv.classList.add('project-item');
             specialDiv.addEventListener('click', () => {
                 this.currentProject = name;
                 this.renderTodos(name);
@@ -107,7 +107,7 @@ class UIController {
             </div>
             </div>
             <div id="todo-action-btn">
-            
+            <button class= "edit-todo" data-title="${todo.title}"><i class="fa-solid fa-pen-to-square"></i></button>
             <button class="delete-todo" data-title="${todo.title}"><i class="fa-solid fa-trash"></i></button>
             </div>
         `;
@@ -125,6 +125,10 @@ class UIController {
                 UIController.renderTodos(projectName);
             })
 
+            todoItem.querySelector('.edit-todo').addEventListener('click', () => {
+                UIController.openEditTodoModal(todo); // Open modal with todo data
+            });
+
             todoList.appendChild(todoItem);
         });
     }
@@ -134,10 +138,7 @@ class UIController {
             item.classList.remove('selected-project');
         });
         selectedProject.classList.add('selected-project');
-        // window.addEventListener('click', (e) => {
-        //     if (e.target === selectedProject) selectedProject.classList.add('selected-project');
-        //     else selectedProject.classList.remove('selected-project');
-        // });
+      
     }
 
     static setupEventListeners() {
@@ -168,7 +169,7 @@ class UIController {
 
         window.addEventListener('click', (e) => {
             const selectedProject = document.querySelector('.selected-project');
-            if (selectedProject && !selectedProject.contains(e.target)) {
+            if (e.target === selectedProject) {
                 selectedProject.classList.remove('selected-project');
             }
         });
@@ -192,8 +193,17 @@ class UIController {
             const priority = document.getElementById('todo-priority').value;
 
             if (projectName && title && dueDate && priority) {
-                const todo = new Todo(title, description, dueDate, priority);
-                TodoManager.addTodoToProject(UIController.currentProject, todo);
+                const existingTitle = document.getElementById('todo-modal').getAttribute('data-editing-title');
+                
+                if (existingTitle) {
+                    // Editing an existing todo
+                    TodoManager.updateTodoInProject(existingTitle,{title,description,dueDate,priority});
+                    document.getElementById('todo-modal').removeAttribute('data-editing-title');
+                } else {
+                    // Creating a new todo
+                    const todo = new Todo(title, description, dueDate, priority);
+                    TodoManager.addTodoToProject(UIController.currentProject, todo);
+                }
                 UIController.renderTodos(UIController.currentProject);
                 todoModal.style.display = 'none';
 
@@ -230,7 +240,21 @@ class UIController {
                 return '#f4f4f4'; // Default light gray
         }
     }
+    
+    static openEditTodoModal(todo){
+        const todoModal = document.getElementById('todo-modal');
+        todoModal.style.display = 'flex';
 
+        // Populate modal fields with existing todo data
+        document.getElementById('todo-title').value = todo.title;
+        document.getElementById('todo-description').value = todo.description;
+        document.getElementById('todo-due-date').value = todo.dueDate;
+        document.getElementById('todo-priority').value = todo.priority;
+        document.getElementById('todo-project-select').value = UIController.currentProject;
+    
+        // Store the todo title temporarily for updating
+        document.getElementById('todo-modal').setAttribute('data-editing-title', todo.title);
+    }
 }
 
 export default UIController;

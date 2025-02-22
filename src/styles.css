@@ -372,6 +372,7 @@ main {
 }
 
 .delete-todo,
+.edit-todo,
 .delete-project {
     background: none;
     border: none;
@@ -382,8 +383,21 @@ main {
     cursor: pointer;
 }
 
-.delete-todo i {
+.delete-todo i,
+.edit-todo i {
     font-size: 1.5rem;
     cursor: pointer;
 
+}
+
+footer {
+    color: rgb(156, 156, 156);
+    text-align: center;
+    background-color: #202020;
+    padding: 5 px;
+}
+
+footer a {
+    color: rgb(156, 156, 156);
+    text-decoration: none;
 }
